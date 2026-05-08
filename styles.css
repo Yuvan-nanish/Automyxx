@@ -445,10 +445,10 @@ body.cur-drag #cursor-ring { width: 52px; height: 52px; border-color: rgba(125, 
   display: grid; grid-template-columns: 1fr 1fr;
   gap: clamp(48px, 7vw, 96px); align-items: center;
 }
-.about-left { }
+
 .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 
-.about-right { }
+
 .about-card-stack { position: relative; display: flex; flex-direction: column; gap: 16px; }
 .acard {
   background: var(--bg-card);
@@ -769,7 +769,7 @@ body.cur-drag #cursor-ring { width: 52px; height: 52px; border-color: rgba(125, 
 /* ════════════════════════════════════════════════════════════
    TRUST / TESTIMONIALS
    ════════════════════════════════════════════════════════════ */
-.trust-section { }
+
 .testi-marquee-wrap {
   overflow: hidden; margin-bottom: clamp(48px, 6vw, 72px);
   position: relative;

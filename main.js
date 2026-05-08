@@ -552,8 +552,15 @@ function dist2(ax, ay, bx, by) { const dx = ax-bx, dy = ay-by; return dx*dx+dy*d
 })();
 
 /* ══════════════════════════════════════════════════════════
-   11. CONTACT FORM
+   11. CONTACT FORM — powered by Formspree
+   ══════════════════════════════════════════════════════════
+   SETUP: Replace YOUR_FORM_ID below with your Formspree ID.
+   1. Go to https://formspree.io and sign up (free)
+   2. Click "New Form", name it "Automyx Contact"
+   3. Copy the form ID (e.g. xpwzrqkd) and paste below
    ══════════════════════════════════════════════════════════ */
+const FORMSPREE_ID = 'mpqbyqgp'; // ← replace this
+
 (function initForm() {
   const form = $('contact-form');
   const msg  = $('form-msg');
@@ -564,22 +571,48 @@ function dist2(ax, ay, bx, by) { const dx = ax-bx, dy = ay-by; return dx*dx+dy*d
     e.preventDefault();
     msg.className = 'form-msg';
 
-    const name  = $('cf-name').value.trim();
-    const email = $('cf-email').value.trim();
-    const text  = $('cf-message').value.trim();
+    const name    = $('cf-name').value.trim();
+    const email   = $('cf-email').value.trim();
+    const subject = $('cf-subject')?.value.trim() || '(no subject)';
+    const text    = $('cf-message').value.trim();
 
+    // — Client-side validation —
     if (!name)  return showMsg('Please enter your name.', 'err');
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
                 return showMsg('Please enter a valid email.', 'err');
     if (!text)  return showMsg('Please enter a message.', 'err');
 
+    if (FORMSPREE_ID === 'YOUR_FORM_ID') {
+      showMsg('⚠ Form not configured yet. See main.js for setup instructions.', 'err');
+      return;
+    }
+
+    // — Send to Formspree —
     btn.disabled = true;
     btn.querySelector('span').textContent = 'Sending…';
-    await new Promise(r => setTimeout(r, 1600));
-    btn.disabled = false;
-    btn.querySelector('span').textContent = 'Send Message';
-    form.reset();
-    showMsg('✓ Message sent! We\'ll be in touch within 24 hours.', 'ok');
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message: text })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        form.reset();
+        showMsg('✓ Message sent! We\'ll be in touch within 24 hours.', 'ok');
+      } else {
+        const errMsg = data?.errors?.map(e => e.message).join(', ') || 'Something went wrong.';
+        showMsg(`✗ ${errMsg}`, 'err');
+      }
+    } catch {
+      showMsg('✗ Network error. Please try again or email us directly.', 'err');
+    } finally {
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Send Message';
+    }
   });
 
   function showMsg(text, cls) {
