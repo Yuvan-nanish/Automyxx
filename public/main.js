@@ -1,7 +1,7 @@
 'use strict';
 
 /* ══════════════════════════════════════════════════════════
-   AUTOMYX v2 — main.js
+   UpfrontSolutions v2 — main.js
    Interactive draggable neural net · Sky aesthetic · Flow animations
    ══════════════════════════════════════════════════════════ */
 
@@ -556,7 +556,7 @@ function dist2(ax, ay, bx, by) { const dx = ax-bx, dy = ay-by; return dx*dx+dy*d
    ══════════════════════════════════════════════════════════
    SETUP: Replace YOUR_FORM_ID below with your Formspree ID.
    1. Go to https://formspree.io and sign up (free)
-   2. Click "New Form", name it "Automyx Contact"
+   2. Click "New Form", name it "UpfrontSolutions Contact"
    3. Copy the form ID (e.g. xpwzrqkd) and paste below
    ══════════════════════════════════════════════════════════ */
 const FORMSPREE_ID = 'mpqbyqgp'; // ← replace this
@@ -677,4 +677,198 @@ const FORMSPREE_ID = 'mpqbyqgp'; // ← replace this
       card.style.background = '';
     });
   });
+})();
+
+/* ══════════════════════════════════════════════════════════
+   16. PROJECT MODALS
+   ══════════════════════════════════════════════════════════ */
+(function initProjectModals() {
+  const LOGOS = {
+    'ai-prediction':       `<svg viewBox="0 0 40 40" fill="none"><path d="M20 6C13.4 6 8 11.4 8 18c0 4.2 2 7.9 5.1 10.2L12 34h16l-1.1-5.8C30 25.9 32 22.2 32 18c0-6.6-5.4-12-12-12z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13 23l3.5-5 3.5 3.5 3.5-7L27 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'secure-encryption':   `<svg viewBox="0 0 40 40" fill="none"><path d="M20 4L8 9v11c0 9.4 5.2 16.3 12 18 6.8-1.7 12-8.6 12-18V9L20 4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><rect x="15" y="18" width="10" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M17 18v-2a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+    'automation-dashboard':`<svg viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/><rect x="22" y="4" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="22" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/><rect x="22" y="22" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    'smart-doc':           `<svg viewBox="0 0 40 40" fill="none"><path d="M8 6h16l8 8v20H8V6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M24 6v8h8" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="26" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M22 30l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+    'neuroops':            `<svg viewBox="0 0 40 40" fill="none"><rect x="4" y="6" width="32" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="18" width="32" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="32" cy="10" r="2" fill="currentColor"/><circle cx="32" cy="22" r="2" fill="currentColor"/><path d="M10 32c2-4 4-2 6 0s4 2 6 0 4-4 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+    'recruit-iq':          `<svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="13" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 34c0-6.6 5.4-12 12-12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M28 23l2 5 4-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'support-iq':          `<svg viewBox="0 0 40 40" fill="none"><path d="M20 6c-7.7 0-14 6.3-14 14 0 3.5 1.3 6.7 3.4 9.2L8 33h4.8c2.1 1.3 4.5 2 7.2 2 7.7 0 14-6.3 14-14S27.7 6 20 6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 20a5 5 0 0 1 10 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="12" y="20" width="4" height="5" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="24" y="20" width="4" height="5" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M29 29l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="31" cy="31" r="2.5" stroke="currentColor" stroke-width="1.3"/></svg>`,
+  };
+
+  const DATA = {
+    'ai-prediction': {
+      name: 'AI Prediction System',
+      tagline: 'ML platform forecasting business outcomes with high accuracy',
+      tags: ['Python','TensorFlow','FastAPI','React','Scikit-learn'],
+      overview: 'An end-to-end machine learning platform that ingests historical business data and produces accurate predictions for sales, churn, demand, and operational metrics. Built with a FastAPI backend, it serves predictions via REST API to a React dashboard with real-time visualisations.',
+      features: [
+        {t:'Ensemble Forecasting', d:'Combines gradient boosting, LSTM, and linear regression models for robust multi-horizon predictions.'},
+        {t:'Real-time Dashboard', d:'React frontend with live charts updated as new data arrives — no page refresh required.'},
+        {t:'Auto Feature Engineering', d:'Automatically extracts lag features, rolling statistics, and seasonality indicators from raw time-series data.'},
+        {t:'Model Monitoring', d:'Tracks prediction drift and retrains automatically when accuracy drops below threshold.'},
+      ],
+      stack: ['Python','TensorFlow','FastAPI','React','PostgreSQL','Docker'],
+    },
+    'secure-encryption': {
+      name: 'Secure Encryption Platform',
+      tagline: 'End-to-end encryption infrastructure for regulated industries',
+      tags: ['AES-256','Node.js','PostgreSQL','Zero Trust','HIPAA'],
+      overview: 'A zero-trust encryption infrastructure built for healthcare and financial sectors. Provides AES-256 field-level encryption, key management, audit logging, and compliance reporting — all without exposing raw data to the application layer.',
+      features: [
+        {t:'Field-Level Encryption', d:'Encrypt individual database columns — only authorised microservices can decrypt specific fields.'},
+        {t:'Key Rotation', d:'Automated key lifecycle management with zero-downtime rotation and backward compatibility.'},
+        {t:'Audit Trail', d:'Immutable, tamper-proof logs of every data access event for HIPAA / PCI-DSS compliance.'},
+        {t:'Zero-Trust Architecture', d:'Every service must authenticate and be authorised per-request. No implicit trust within the network.'},
+      ],
+      stack: ['Node.js','PostgreSQL','Redis','Vault (HashiCorp)','Docker','AWS KMS'],
+    },
+    'automation-dashboard': {
+      name: 'Automation Dashboard',
+      tagline: 'Real-time control centre for distributed automated workflows',
+      tags: ['Vue.js','WebSockets','Redis','Node.js','Kubernetes'],
+      overview: 'A live operations dashboard for managing and monitoring complex distributed automation pipelines. Engineers get real-time visibility into workflow health, job queues, failure rates, and throughput — all in a single pane of glass.',
+      features: [
+        {t:'Live WebSocket Updates', d:'Sub-second dashboard refresh with WebSocket push — no polling, no stale data.'},
+        {t:'Workflow DAG Visualiser', d:'Interactive directed acyclic graph showing task dependencies and current execution state.'},
+        {t:'Alert & Escalation Engine', d:'Rule-based alerting with on-call rotation and escalation policies built in.'},
+        {t:'Multi-Cluster Support', d:'Aggregate metrics from multiple Kubernetes clusters into a single unified view.'},
+      ],
+      stack: ['Vue.js','Node.js','Redis','WebSockets','Kubernetes','Prometheus'],
+    },
+    'smart-doc': {
+      name: 'Smart Doc Analyzer',
+      tagline: 'NLP-powered extraction and classification of unstructured documents',
+      tags: ['NLP','spaCy','OCR','AWS','Python'],
+      overview: 'An intelligent document processing pipeline that ingests PDFs, scans, and forms — extracts structured data using OCR and NLP — then classifies, routes, and archives documents automatically. Reduces manual document handling by over 90%.',
+      features: [
+        {t:'Multi-Format OCR', d:'Handles PDFs, scanned images, and handwritten forms using Tesseract and AWS Textract.'},
+        {t:'Named Entity Extraction', d:'spaCy-powered NER identifies names, dates, amounts, organisations, and custom entities.'},
+        {t:'Auto Classification', d:'ML classifier routes documents to the correct workflow based on content type and metadata.'},
+        {t:'Confidence Scoring', d:'Every extraction includes a confidence score — low-confidence items are flagged for human review.'},
+      ],
+      stack: ['Python','spaCy','AWS Textract','Tesseract','FastAPI','S3','PostgreSQL'],
+    },
+    'neuroops': {
+      name: 'NeuroOps',
+      tagline: 'Autonomous SRE platform — monitor, predict, auto-heal, 24/7',
+      tags: ['Python','FastAPI','XGBoost','AWS','PostgreSQL','Redis','GitHub Actions'],
+      overview: 'NeuroOps is an autonomous Site Reliability Engineering platform that monitors cloud infrastructure 24/7, detects anomalies before they cause outages, predicts hardware failures days in advance, and automatically heals broken systems — all without human intervention. One NeuroOps instance replaces the routine work of 5–10 SRE engineers.',
+      features: [
+        {t:'InfraMind — Anomaly Detection', d:'Hybrid ML (Isolation Forest + Statistical Z-Score) detects CPU spikes, memory leaks, and unusual patterns within seconds.'},
+        {t:'Failure Predictor (XGBoost)', d:'94%+ accuracy failure prediction trained on thousands of real AWS metrics. Outputs: "Failure probability: 92.76%, Risk: CRITICAL".'},
+        {t:'RUL — Remaining Useful Life', d:'7-feature Random Forest model estimates remaining cycles before hardware failure for predictive maintenance scheduling.'},
+        {t:'Auto-Healing Engine', d:'Automatically restarts EC2, scales up/down, cleans disk, restarts services — with cooldown periods and rollback on failure.'},
+        {t:'ScaleWise — Cost Optimiser', d:'Real-time AWS pricing API integration. Detects idle instances and recommends downsizing. Example: "t3.medium → t3.micro: Save $22.78/month".'},
+        {t:'OpsGPT — AI Log Analysis', d:'Two-tier rule-based pattern matching + OpenRouter LLM fallback. Reduces debugging from 30 minutes to 30 seconds.'},
+        {t:'DeployGuard', d:'ML model assesses deployment risk before push. Output: "Risk: 74% → BLOCKED" or "Risk: 30% → APPROVED".'},
+      ],
+      metrics: [
+        {v:'85',l:'API Endpoints'},{v:'7,800+',l:'Metrics Collected'},{v:'2,110+',l:'Alerts Generated'},
+        {v:'94%+',l:'Prediction Accuracy'},{v:'852',l:'Auto-Heal Actions'},{v:'$22.78',l:'Saved / Instance / Month'},
+      ],
+      stack: ['Python','FastAPI','Scikit-learn','XGBoost','Isolation Forest','PostgreSQL','Redis','AWS EC2/CloudWatch/SNS','GitHub Actions','Docker'],
+    },
+    'recruit-iq': {
+      name: 'Recruit-IQ',
+      tagline: 'End-to-end AI recruitment — screen, interview, evaluate, zero bias',
+      tags: ['FastAPI','OpenRouter','Supabase','PaddleOCR','MediaPipe','gTTS'],
+      overview: 'Recruit-IQ is an end-to-end AI recruitment automation platform that screens, evaluates, and interviews candidates with zero human intervention until final shortlisting. It saves HR teams 80% of their screening time while ensuring 100% proctored, cheat-proof interviews. Built for startups, SMEs, and enterprises across tech, healthcare, finance, and retail.',
+      features: [
+        {t:'AI Resume Screening', d:'Hybrid scoring: 40% RRF keyword+semantic, 40% Skill Ontology matching, 20% semantic similarity. Outputs 0–100% score + recommendation.'},
+        {t:'Multilingual OCR', d:'PaddleOCR processes Tamil, Hindi, and English resumes — eliminating false negatives from non-English CVs.'},
+        {t:'Intelligent Interview Engine', d:'Generates 5 adaptive questions per candidate: 2 domain-specific, 2 resume-specific, 1 general. Supports typed, voice, MCQ, and drawing formats.'},
+        {t:'5-Layer Anti-Cheat Proctoring', d:'Browser lock + webcam face detection (90% integrity score) + continuous face verification + tab tracking + 15-min grace period.'},
+        {t:'Automated Email Reports', d:'Shortlisted and rejected candidates receive instant email with a PDF evaluation report and improvement suggestions.'},
+        {t:'HR Dashboard', d:'Streamlit-based dashboard to review scores, shortlist candidates, schedule interviews, and export CSV analytics.'},
+      ],
+      metrics: [
+        {v:'80%',l:'Screening Time Saved'},{v:'$0',l:'Monthly Cost (Free Tier)'},{v:'1000+',l:'Resumes/Month'},
+        {v:'5-Layer',l:'Anti-Cheat System'},{v:'90%',l:'Proctoring Integrity'},{v:'30s',l:'Resume Screened In'},
+      ],
+      stack: ['FastAPI','Python','OpenRouter LLM','Supabase','PaddleOCR','OpenCV','MediaPipe','gTTS','Web Speech API','Gmail SMTP'],
+    },
+    'support-iq': {
+      name: 'SupportIQ',
+      tagline: 'AI-powered e-commerce support resolution — triage, retrieve, resolve, verify',
+      tags: ['Python','FastAPI','LangGraph','FAISS','Gemini LLMs'],
+      overview: 'SupportIQ is a multi-agent AI-powered e-commerce customer support platform that automatically analyzes support tickets, retrieves relevant company policies using semantic search, generates grounded customer resolutions with citations, and validates responses through a compliance-checking agent before final delivery. The system handles refunds, shipping disputes, cancellations, damaged items, payment issues, and policy inquiries while minimizing hallucinations through strict retrieval grounding and verification pipelines.',
+      features: [
+        {t:'Smart Triage Agent', d:'Automatically classifies customer issues into categories like refunds, cancellations, shipping problems, damaged items, and payment disputes. Extracts key facts, identifies missing information, and generates targeted retrieval queries.'},
+        {t:'PolicyMind — Semantic Retrieval', d:'FAISS-powered vector search with Sentence Transformers embeddings retrieves the most relevant policy sections from the company knowledge base in milliseconds.'},
+        {t:'Grounded Resolution Writer', d:'Generates professional customer-facing responses strictly from retrieved policy context with mandatory citations for every factual claim.'},
+        {t:'ComplianceGuard — Hallucination Detection', d:'Second-pass verification agent checks every generated response for unsupported claims, missing citations, policy violations, and unsafe language before approval.'},
+        {t:'Multi-LLM Failover Engine', d:'Automatic provider fallback chain using Gemini 2.5 Flash, Gemini 2.5 Pro, Groq Llama 3.3 70B, and Groq Llama 3.1 8B for high availability and resilience during rate limits or outages.'},
+        {t:'LangGraph Workflow Orchestration', d:'State-machine architecture dynamically routes tickets through triage, retrieval, resolution generation, compliance validation, retries, and finalization.'},
+        {t:'Evaluation Framework', d:'20 realistic support test cases covering refunds, lost packages, damaged items, wrong shipments, billing disputes, spam detection, and policy inquiries with automated accuracy evaluation.'},
+      ],
+      metrics: [
+        {v:'20',l:'Evaluation Test Cases'},{v:'5+',l:'Policy Domains Indexed'},{v:'4',l:'Autonomous AI Agents'},
+        {v:'100%',l:'Citation-Grounded Responses'},{v:'2-Level',l:'Compliance Verification'},{v:'0',l:'Hallucinations Approved'},
+      ],
+      stack: ['Python','FastAPI','LangGraph','FAISS','Sentence Transformers','Pydantic','Streamlit','Gemini 2.5 Flash','Gemini 2.5 Pro','Groq Llama 3.3 70B','Groq Llama 3.1 8B','RAG','Vector Semantic Search','Multi-Agent AI Workflow'],
+    },
+  };
+
+  const overlay = $('proj-modal');
+  const closeBtn = $('proj-modal-close');
+  const logoEl   = $('proj-modal-logo');
+  const titleEl  = $('proj-modal-title');
+  const taglineEl= $('proj-modal-tagline');
+  const tagsEl   = $('proj-modal-tags');
+  const bodyEl   = $('proj-modal-body');
+  if (!overlay) return;
+
+  function openModal(key) {
+    const d = DATA[key];
+    if (!d) return;
+
+    logoEl.innerHTML   = LOGOS[key] || '';
+    titleEl.textContent= d.name;
+    taglineEl.textContent = d.tagline;
+    tagsEl.innerHTML   = d.tags.map(t => `<span>${t}</span>`).join('');
+
+    let html = `<div class="pm-section"><div class="pm-section-title">Overview</div><p class="pm-overview">${d.overview}</p></div>`;
+
+    if (d.features?.length) {
+      html += `<div class="pm-section"><div class="pm-section-title">Key Features</div><div class="pm-features">`;
+      d.features.forEach(f => {
+        html += `<div class="pm-feature"><div class="pm-feature-title">${f.t}</div><div class="pm-feature-desc">${f.d}</div></div>`;
+      });
+      html += `</div></div>`;
+    }
+
+    if (d.metrics?.length) {
+      html += `<div class="pm-section"><div class="pm-section-title">Results</div><div class="pm-metrics">`;
+      d.metrics.forEach(m => {
+        html += `<div class="pm-metric"><div class="pm-metric-val">${m.v}</div><div class="pm-metric-label">${m.l}</div></div>`;
+      });
+      html += `</div></div>`;
+    }
+
+    if (d.stack?.length) {
+      html += `<div class="pm-section"><div class="pm-section-title">Tech Stack</div><div class="pm-stack">`;
+      d.stack.forEach(s => { html += `<span>${s}</span>`; });
+      html += `</div></div>`;
+    }
+
+    bodyEl.innerHTML = html;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    overlay.querySelector('.proj-modal-inner').scrollTop = 0;
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Open on "View Project" button click
+  document.querySelectorAll('.proj-card').forEach(card => {
+    card.querySelector('.proj-hover-overlay')?.addEventListener('click', () => {
+      const key = card.dataset.project;
+      if (key) openModal(key);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 })();
